@@ -26,10 +26,9 @@ const onImageClick = (e) => {
   document.addEventListener("keydown", onCloseModal);
 };
 
-const createGalleryItem = (item) => {
-  const { description, preview, original } = item;
-
-  return `<div class="gallery__item">
+const itemMarkup = galleryItems
+  .map(({ preview, description, original }) => {
+    return `<div class="gallery__item">
   <a class="gallery__link" href="large-image.jpg">
     <img
       class="gallery__image"
@@ -39,12 +38,8 @@ const createGalleryItem = (item) => {
     />
   </a>
 </div>`;
-};
-
-for (let item of galleryItems) {
-  const itemMarkup = createGalleryItem(item);
-
-  galleryEl.insertAdjacentHTML("beforeend", itemMarkup);
-}
+  })
+  .join("");
+galleryEl.insertAdjacentHTML("beforeend", itemMarkup);
 
 galleryEl.addEventListener("click", onImageClick);
